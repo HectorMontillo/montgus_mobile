@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 //initial commit devDavila (new branch)
 
 final List<String> imgList = [
@@ -15,7 +16,6 @@ final List<String> imgList = [
   'https://pbs.twimg.com/media/EhAtpR7WAAM2NXt.png',
   'https://pbs.twimg.com/media/C-h9qoXU0AAjX-V.jpg',
   'https://recursos.bancobase.com/hubfs/Blog_Julio_16/29_JULIO_NUEVOS_MODELOS_DE_NEGOCIO_ADAPTADOS_AL_CLIENTE_2.jpg',
-
   
 ];
 
@@ -75,6 +75,7 @@ final List<Widget> imageSliders = imgList.map((item) => Container(
   ),
 )).toList();
 
+
 class Slides extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -84,12 +85,13 @@ class Slides extends StatefulWidget {
 
 class _CarouselWithIndicatorState extends State<Slides> {
   int _current = 0;
+  int _slideduration = 16;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
+        children: [       
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: imgList.map((url) {
@@ -107,11 +109,24 @@ class _CarouselWithIndicatorState extends State<Slides> {
               );
             }).toList(),
           ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new RaisedButton(
+                child: Text("play sound"),
+                onPressed: onPlayAudio,
+              )
+            ],
+          ),
+
           CarouselSlider(
             items: imageSliders,
             options: CarouselOptions(
               height: 600.0,
-              autoPlay: true,
+              initialPage: 0,
+              autoPlay: true, //solo se deberia activar cuando se active el audio
+              autoPlayInterval: Duration(seconds: _slideduration), //TODO duration depend of audio duration
               enlargeCenterPage: true,
               aspectRatio: 2.0,
               onPageChanged: (index, reason) {
@@ -121,21 +136,26 @@ class _CarouselWithIndicatorState extends State<Slides> {
               }
             ),
             ),
-          //new TextForLessons()
-          /*
-          new Text(
-            "dak",
-              style: new TextStyle(
-                  fontStyle: FontStyle.italic,
-                  color: Colors.green[900],
-                  fontSize: 16.0
-              ),
-          )*/
         ]
       ),
     );
   }
+
+  void onPlayAudio() async{
+    AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
+    assetsAudioPlayer.open(
+      Audio("assets/audios/$_current.mp3"),
+    );
+  }
 }
+
+/*
+void onPlayAudio() async{
+  AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
+  assetsAudioPlayer.open(
+    Audio("assets/audios/1.mp3"),
+  );
+}}*/
 
 class TextForLessons extends StatelessWidget {
   @override
