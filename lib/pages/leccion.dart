@@ -167,9 +167,9 @@ class TextForLessons extends StatelessWidget {
   
 
 }
-
+/*
 //statelesswidget is for static widgets, change this?
-class Slidess extends StatelessWidget {
+class Slides extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -196,4 +196,4 @@ class Slidess extends StatelessWidget {
       }).toList(),
     );
   }
-}
+}*/
