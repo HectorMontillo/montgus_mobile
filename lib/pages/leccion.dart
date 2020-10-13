@@ -45,8 +45,8 @@ class _SlidesState extends State<Slides> {
   void onPlayAudio() async {
     AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
     assetsAudioPlayer.open(
-      //Audio("assets/audios/$_current.mp3"),
-      Audio("assets/audios/0.mp3"),
+      Audio("assets/audios/$_current.mp3"),
+      //Audio("assets/audios/0.mp3"),
     );
   }
 
