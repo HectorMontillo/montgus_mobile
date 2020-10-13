@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-//import 'package:marquee/marquee.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 final List<String> imgList = [
   'https://cdn.unitycms.io/image/ocroped/2001,2000,1000,1000,0,0/95oyqVwZg-0/9Cfc6EgYqNuABfwBjSfsXm.jpg',
@@ -42,6 +42,14 @@ class Slides extends StatefulWidget {
 class _SlidesState extends State<Slides> {
   int _current = 0;
 
+  void onPlayAudio() async {
+    AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
+    assetsAudioPlayer.open(
+      //Audio("assets/audios/$_current.mp3"),
+      Audio("assets/audios/0.mp3"),
+    );
+  }
+
   List<Widget> _getSliders() {
     return imgList
         .map(
@@ -64,7 +72,7 @@ class _SlidesState extends State<Slides> {
                       Container(),
                       IconButton(
                         icon: Icon(Icons.hearing),
-                        onPressed: () {},
+                        onPressed: onPlayAudio,
                         iconSize: 30.0,
                       ),
                     ],
@@ -80,7 +88,7 @@ class _SlidesState extends State<Slides> {
                         ),
                         Center(
                           child: Text(
-                            textLessons[imgList.indexOf(item)],
+                            textLessons[_current],
                             style: TextStyle(
                               color: Colors.blueGrey.shade900,
                               fontSize: 18.0,
